@@ -66,6 +66,9 @@ Poker.PreloadState = {
         this.load.image('spadeK', 'assets/images/cardSpadesK.png');
         this.load.image('spadeA', 'assets/images/cardSpadesA.png');
         
+        this.load.image('bet', 'assets/images/bet.png');
+        this.load.image('fold', 'assets/images/fold.png');
+        
         this.load.text('pokerData', 'assets/data/poker.json');
         
     },

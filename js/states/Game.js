@@ -7,11 +7,18 @@ Poker.GameState = {
         this.background = this.add.sprite(0, 0, "background");
         this.pokerData = JSON.parse(this.game.cache.getText('pokerData'));
         this.rounds = 1;
+        //InitializeButtons
+        this.initButtons();
         //Initialize round variables
         this.initVariables();
     },
     initVariables: function()
     {
+        //Initialize bet variables
+        this.totalBet = 0;
+        this.betAmount = 15 - (this.rounds * 5);
+        this.betAmount === 0 ? this.betAmount = 1:this.betAmount = this.betAmount;
+        this.betText = this.add.text(40, 50, "Current Bet: $0", {fill: '#FFFFFF'});
         //Boolean check for which cards still need flipped of the 5
         this.flipped = [false, false, false, false, false];
         //If it is not the final round set the cards with a random selection
@@ -19,6 +26,68 @@ Poker.GameState = {
         {
             this.setCardsRandom();
         }
+    },
+    initButtons: function()
+    {
+        //Buttons
+        //Bet Button
+        this.bet = this.add.button(50, 420, 'bet', function()
+        {
+            let found = false;
+            for(let i =0; i<5; i++)
+            {
+                if(!this.flipped[i])
+                {
+                    this.flipped[i] = true;
+                    found = true;
+                    this.totalBet += this.betAmount;
+                    break;
+                }
+            }
+            
+            if(!found)
+            {
+                //end game
+                console.log('endGame');
+            }
+            console.log(this.flipped);
+        }, this);
+        
+        this.bet.scale.setTo(0.4, 0.4);
+        
+        //Call Button
+        this.call = this.add.button(50, 480, 'fold', function()
+        {
+            for(let i =0; i<5; i++)
+            {
+                if(!this.flipped[i])
+                {
+                    this.flipped[i] = true;
+                }
+            }
+            
+            console.log('endGame');
+            console.log(this.flipped);
+        }, this);
+        
+        this.call.scale.setTo(0.7, 0.7);
+        
+        //Fold Button
+        this.fold = this.add.button(50, 550, 'fold', function()
+        {
+            for(let i =0; i<5; i++)
+            {
+                if(!this.flipped[i])
+                {
+                    this.flipped[i] = true;
+                }
+            }
+            
+            console.log('endGame');
+            console.log(this.flipped);
+        }, this);
+        
+        this.fold.scale.setTo(0.6, 0.6);
     },
     setCardsRandom: function()
     {
@@ -61,7 +130,7 @@ Poker.GameState = {
     },
     update: function ()
     {
-        
+        this.betText.setText("Current Bet: $"+this.totalBet);
     }
 };
 /*Copyright (C) Wayside Co. - All Rights Reserved
