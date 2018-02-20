@@ -1,0 +1,50 @@
+{
+    "Hands":[
+                ["heart6", "heart7"],
+                ["spade2", "heart2"],
+                ["diamondK", "club9"],
+                ["diamond3", "heart8"],
+                ["heart5", "diamond7"],
+                ["club6", "diamond6"],
+                ["club8", "spade3"],
+                ["diamond4", "heartA"],
+                ["heart4", "club10"]
+            ],
+    "Dealer":[
+                ["heartJ", "heartA"],
+                ["diamond3", "diamond5"],
+                ["spade10", "spadeQ"],
+                ["diamondK", "diamond10"],
+                ["club10", "club7"],
+                ["spade2", "spade5"],
+                ["diamond7", "heart2"],
+                ["spadeA", "spade7"],
+                ["heart2", "spade5"]
+             ],
+    "5Card":[
+                ["heartQ", "heart8", "heart9", "heart10", "heartK"],
+                ["diamond2", "diamond6", "spadeQ", "club2", "diamond4"],
+                ["heartK", "spadeJ", "spadeK", "spade9", "diamond8"],
+                ["diamondJ", "heart 10", "diamondQ", "diamond2", "diamondA"],
+                ["club8", "club6", "diamond2", "heartJ", "club9"],
+                ["spade3", "clubJ", "diamondA", "spade4", "spade6"],
+                ["heart8", "club7", "spadeA", "spade7", "heart3"],
+                ["heart7", "spadeJ", "spade2", "spade3", "club4"],
+                ["spadeJ", "heartA", "club2", "diamond5", "diamond7"]
+            ],
+    "WinText":[
+                ["Straight Flush", "Royal Flush"],
+                ["4 of a Kind", "Straight Flush"],
+                ["Full House", "Royal Flush"],
+                ["Flush", "Royal Flush"],
+                ["Straight", "Straight Flush"],
+                ["3 of a Kind", "Straight Flush"],
+                ["2 pair", "3 of a Kind"],
+                ["Pair", "Flush"],
+                ["High Card", "2 Pair"]
+              ],
+    "FinalHand":["club10", "clubA"],
+    "FinalDealer":["club4", "clubJ"],
+    "Final5Card":["diamond4", "clubQ", "heartJ", "clubK", "clubJ"],
+    "FinalWin":["Royal Flush", "Full House"]
+}
