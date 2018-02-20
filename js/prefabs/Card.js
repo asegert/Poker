@@ -14,6 +14,7 @@ Poker.Card = function(state) {
          this.suit = this.setSuit(texture);
          this.value = this.setValue(texture, this.suit);
          this.sprite = null;
+         this.glow = null;
          
          return this;
      };
@@ -67,12 +68,42 @@ Poker.Card = function(state) {
             return parseInt(num);
         }
      };
-     Poker.Card.prototype.addSprite = function(x, y)
+     Poker.Card.prototype.addSprite = function(x, y, flip, scale)
      {
-         //Create a sprite using the card's texture (card face)
-         this.sprite = this.state.add.sprite(x, y, this.texture);
-         this.sprite.scale.setTo(0.8, 0.8);
+         if(!flip)
+         {
+             //Create a sprite using the card's texture (card face)
+            this.sprite = this.state.add.sprite(x, y, this.texture);
+            this.sprite.scale.setTo(scale, scale);
+            this.sprite.anchor.setTo(0.5, 0.5);
+         }
+         else
+         {
+             //Create a sprite using the card's texture (card face)
+            this.sprite = this.state.add.sprite(x, y, 'cardBack');
+            this.sprite.scale.setTo(scale, scale);
+            this.sprite.anchor.setTo(0.5, 0.5);
+         }
      };
+    Poker.Card.prototype.flipSprite = function()
+    {
+        let x = this.sprite.scale.x;
+        let flipStart = this.state.add.tween(this.sprite.scale).to({x: 0}, 300, "Linear", true);
+        flipStart.onComplete.add(function()
+        {
+            this.sprite.loadTexture(this.texture);
+            this.state.add.tween(this.sprite.scale).to({x: x}, 300, "Linear", true);
+        }, this);
+        
+    };
+    Poker.Card.prototype.addGlow = function()
+    {
+        this.glow = this.state.add.sprite(this.sprite.x, this.sprite.y, 'glow');
+        this.glow.scale.setTo(this.sprite.scale.x, this.sprite.scale.y);
+        this.glow.anchor.setTo(0.5, 0.5);
+        this.glow.alpha=0;
+        this.state.world.bringToTop(this.sprite);
+    };
 };
     
 Poker.Card.prototype = Object.create(Phaser.Sprite.prototype);

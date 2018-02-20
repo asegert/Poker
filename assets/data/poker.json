@@ -37,25 +37,25 @@
                 [[true, false, false, true, false], [true, true, false, false, true]],
                 [[true, false, true, true, false], [false, true, true, true, false]],
                 [[true, false, true, true, true], [true, false, true, false, true]],
-                [[true, true, false, false, true], [true, false, false, true, true]],
+                [[true, true, false, false, true], [true, true, false, false, true]],
                 [[false, false, false, false, true], [true, false, false, true, true]],
                 [[true, false, false, false, true], [false, true, false, true, false]],
                 [[false, false, false, false, true], [false, true, true, true, false]],
                 [[false, false, false, false, false], [false, false, true, true, false]]
            ],
     "WinText":[
-                ["Straight Flush", "Royal Flush"],
-                ["4 of a Kind", "Straight Flush"],
-                ["Full House", "Royal Flush"],
-                ["Flush", "Royal Flush"],
-                ["Straight", "Straight Flush"],
-                ["3 of a Kind", "Straight Flush"],
+                ["Straight\nFlush", "Royal\nFlush"],
+                ["4 of a Kind", "Straight\nFlush"],
+                ["Full\nHouse", "Royal\nFlush"],
+                ["Flush", "Royal\nFlush"],
+                ["Straight", "Straight\nFlush"],
+                ["3 of a Kind", "Straight\nFlush"],
                 ["2 pair", "3 of a Kind"],
                 ["Pair", "Flush"],
-                ["High Card", "2 Pair"]
+                ["HighCard", "2 Pair"]
               ],
     "FinalHand":["club10", "clubA"],
     "FinalDealer":["club4", "clubJ"],
     "FinalFiveCard":["diamond4", "clubQ", "heartJ", "clubK", "clubJ"],
-    "FinalWin":["Royal Flush", "Full House"]
+    "FinalWin":["Royal\nFlush", "Full\nHouse"]
 }
