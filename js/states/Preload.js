@@ -66,6 +66,8 @@ Poker.PreloadState = {
         this.load.image('spadeK', 'assets/images/cardSpadesK.png');
         this.load.image('spadeA', 'assets/images/cardSpadesA.png');
         
+        this.load.text('pokerData', 'assets/data/poker.json');
+        
     },
     create: function ()
     {

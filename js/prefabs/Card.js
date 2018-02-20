@@ -11,11 +11,13 @@ Poker.Card = function(state) {
      {
          //All cards have the texture->card face, suit, value (number), sprite
          this.texture = texture;
-         this.suit = this.suit(texture);
-         this.value = this.value(texture, this.suit);
+         this.suit = this.setSuit(texture);
+         this.value = this.setValue(texture, this.suit);
          this.sprite = null;
+         
+         return this;
      };
-     Poker.Card.prototype.suit = function(textureString)
+     Poker.Card.prototype.setSuit = function(textureString)
      {
          //Pull the suit out of the string passed in -> String structure suitDigit
          if(textureString.search('diamond') != -1)
@@ -35,21 +37,29 @@ Poker.Card = function(state) {
              return "spade";
          }
      };
-     Poker.Card.prototype.value = function(textureString, suit)
+     Poker.Card.prototype.setValue = function(textureString, suit)
      {
          //Pull the value (number) from the string passed in by removing the suit -> String structure suitDigit
          var num = textureString.replace(suit,'');
          
-         //Set the number if the digit is a number (J->Jack, Q->Queen, K->King, A->Ace), number is = 10 unless ace, then set to 1 other 10 can be added in the game if needed
+         //Set the number if the digit is a number (J->Jack = 11, Q->Queen = 12, K->King = 13, A->Ace = 1)
          if(num.match(/[a-z]/i))
          {
-             if(num == "A")
+             if(num === "A")
              {
                  return 1;
              }
-             else
+             else if(num === "J")
              {
-                 return 10;
+                 return 11;
+             }
+             else if(num === "Q")
+             {
+                 return 12;
+             }
+             else if(num === "K")
+             {
+                 return 13;
              }
          }
          else
@@ -61,6 +71,7 @@ Poker.Card = function(state) {
      {
          //Create a sprite using the card's texture (card face)
          this.sprite = this.state.add.sprite(x, y, this.texture);
+         this.sprite.scale.setTo(0.8, 0.8);
      };
 };
     

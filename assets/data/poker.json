@@ -21,17 +21,28 @@
                 ["spadeA", "spade7"],
                 ["heart2", "spade5"]
              ],
-    "5Card":[
+    "FiveCard":[
                 ["heartQ", "heart8", "heart9", "heart10", "heartK"],
                 ["diamond2", "diamond6", "spadeQ", "club2", "diamond4"],
                 ["heartK", "spadeJ", "spadeK", "spade9", "diamond8"],
-                ["diamondJ", "heart 10", "diamondQ", "diamond2", "diamondA"],
+                ["diamondJ", "heart10", "diamondQ", "diamond2", "diamondA"],
                 ["club8", "club6", "diamond2", "heartJ", "club9"],
                 ["spade3", "clubJ", "diamondA", "spade4", "spade6"],
                 ["heart8", "club7", "spadeA", "spade7", "heart3"],
                 ["heart7", "spadeJ", "spade2", "spade3", "club4"],
                 ["spadeJ", "heartA", "club2", "diamond5", "diamond7"]
-            ],
+               ],
+    "Glow":[
+                [[false, true, true, true, false], [true, false, false, true, true]],
+                [[true, false, false, true, false], [true, true, false, false, true]],
+                [[true, false, true, true, false], [false, true, true, true, false]],
+                [[true, false, true, true, true], [true, false, true, false, true]],
+                [[true, true, false, false, true], [true, false, false, true, true]],
+                [[false, false, false, false, true], [true, false, false, true, true]],
+                [[true, false, false, false, true], [false, true, false, true, false]],
+                [[false, false, false, false, true], [false, true, true, true, false]],
+                [[false, false, false, false, false], [false, false, true, true, false]]
+           ],
     "WinText":[
                 ["Straight Flush", "Royal Flush"],
                 ["4 of a Kind", "Straight Flush"],
@@ -45,6 +56,6 @@
               ],
     "FinalHand":["club10", "clubA"],
     "FinalDealer":["club4", "clubJ"],
-    "Final5Card":["diamond4", "clubQ", "heartJ", "clubK", "clubJ"],
+    "FinalFiveCard":["diamond4", "clubQ", "heartJ", "clubK", "clubJ"],
     "FinalWin":["Royal Flush", "Full House"]
 }
