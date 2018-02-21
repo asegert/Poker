@@ -237,8 +237,8 @@ Poker.GameState = {
             if(data[i])
             {
                 this.fiveCard[i].addGlow();
-                let glowE = this.add.tween(this.fiveCard[i].glow).to({alpha: 1}, 1000, "Linear");
-                let glowOut = this.add.tween(this.fiveCard[i].glow).to({alpha: 0}, 1000, "Linear");
+                let glowE = this.add.tween(this.fiveCard[i].glow).to({alpha: 1}, 800, "Linear");
+                let glowOut = this.add.tween(this.fiveCard[i].glow).to({alpha: 0}, 100, "Linear");
                 last.chain(glowE);
                 glowE.chain(glowOut);
                 last=glowOut;
@@ -256,7 +256,7 @@ Poker.GameState = {
             announce.anchor.setTo(0.5, 0.5);
             announce.scale.setTo(0.1, 0.1);
             let announceAlpha = this.add.tween(announce).to({alpha: 1}, 100, "Linear");
-            let announcement = this.add.tween(announce.scale).to({x: 1, y: 1}, 2000, "Linear");
+            let announcement = this.add.tween(announce.scale).to({x: 1, y: 1}, 1000, "Linear");
             announcement.onComplete.add(function()
             {
                 this.input.enabled = true;
@@ -277,7 +277,7 @@ Poker.GameState = {
             let handText = this.add.text(x, y, content, {fill: '#FF0000', font: '50px Arial'});
             handText.anchor.setTo(0.5, 0.5);
             handText.alpha = 0;
-            let handDeclaration = this.add.tween(handText).to({alpha: 1}, 2000, "Linear");
+            let handDeclaration = this.add.tween(handText).to({alpha: 1}, 1000, "Linear");
             let handRemove = this.add.tween(handText).to({alpha: 0}, 100, "Linear");
             
             return [handDeclaration, handRemove];
