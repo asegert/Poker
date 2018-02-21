@@ -129,6 +129,7 @@ Poker.GameState = {
     },
     setCardsFinal: function()
     {
+        this.rand = this.pokerData.Glow.length-1;
         //Set card arrays
         this.hand = this.pokerData.FinalHand;
         this.dealerHand = this.pokerData.FinalDealer;
@@ -139,7 +140,6 @@ Poker.GameState = {
     },
     prepCards: function()
     {
-        this.rand = this.pokerData.Glow.length-1;
         //Create the cards for the arrays
         this.hand = this.createCards(this.hand);
         this.dealerHand = this.createCards(this.dealerHand);
@@ -189,7 +189,7 @@ Poker.GameState = {
         console.log('endGame');
         console.log(this.flipped);
     },
-    runGlowSequence: function(canWin)//run smoother plz
+    runGlowSequence: function(canWin)//run smoother plz----smooth text creation
     {
         //Player text to state the hand name and remove it later
         let playerText = this.add.text(800, 500, this.winText[0], {fill: '#FF0000', font: '50px Arial'});
@@ -199,20 +199,10 @@ Poker.GameState = {
         let playerRemove = this.add.tween(playerText).to({alpha: 0}, 100, "Linear");
         //Goes through the cards used to make the hand and creates the tween for the glow effect
         //Tweens are then chained to the text tween and each other to create the full animation
-        let data = this.pokerData.Glow[this.rand][0];
-        let last = playerDeclaration;
-        for(let i = 0, len = data.length; i<len; i++)
-        {
-            if(data[i])
-            {
-                this.fiveCard[i].addGlow();
-                let glowE = this.add.tween(this.fiveCard[i].glow).to({alpha: 1}, 1000, "Linear");
-                let glowOut = this.add.tween(this.fiveCard[i].glow).to({alpha: 0}, 1000, "Linear");
-                last.chain(glowE);
-                glowE.chain(glowOut);
-                last=glowOut;
-            }
-        }
+        console.log(this.pokerData.Glow[this.rand]);
+        last  = this.addToChain(playerDeclaration, this.pokerData.Glow[this.rand][0]);
+        
+        
         //Dealer text to state the hand name and remove it later
         let dealerText = this.add.text(160, 150, this.winText[1], {fill: '#FF0000', font: '50px Arial'});
         let dealerRemove = this.add.tween(dealerText).to({alpha: 0}, 100, "Linear");
@@ -220,24 +210,11 @@ Poker.GameState = {
         dealerText.alpha = 0;
         let dealerDeclaration = this.add.tween(dealerText).to({alpha: 1}, 2000, "Linear");
         
-        data = this.pokerData.Glow[this.rand][1];
-        
         last.chain(playerRemove);
         playerRemove.chain(dealerDeclaration);
-        last = dealerDeclaration;
         
-        for(let i = 0, len = data.length; i<len; i++)
-        {
-            if(data[i])
-            {
-                this.fiveCard[i].addGlow();
-                let glowE = this.add.tween(this.fiveCard[i].glow).to({alpha: 1}, 1000, "Linear");
-                let glowOut = this.add.tween(this.fiveCard[i].glow).to({alpha: 0}, 1000, "Linear");
-                last.chain(glowE);
-                glowE.chain(glowOut);
-                last=glowOut;
-            }
-        }
+        last  = this.addToChain(dealerDeclaration, this.pokerData.Glow[this.rand][1]);
+        
         last.chain(dealerRemove);
         
         let announceText = this.add.text(this.world.centerX, this.world.centerY, "You Win!", {fill: '#FF0000', font: '50px Arial'});
@@ -266,6 +243,22 @@ Poker.GameState = {
         
         
         playerDeclaration.start();
+    },
+    addToChain: function(last, data)
+    {
+        for(let i = 0, len = data.length; i<len; i++)
+        {
+            if(data[i])
+            {
+                this.fiveCard[i].addGlow();
+                let glowE = this.add.tween(this.fiveCard[i].glow).to({alpha: 1}, 1000, "Linear");
+                let glowOut = this.add.tween(this.fiveCard[i].glow).to({alpha: 0}, 1000, "Linear");
+                last.chain(glowE);
+                glowE.chain(glowOut);
+                last=glowOut;
+            }
+        }
+        return last;
     },
     destroyHands: function()
     {
