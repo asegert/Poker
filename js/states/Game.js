@@ -12,11 +12,18 @@ Poker.GameState = {
         this.initButtons();
         //Initialize round variables
         this.initVariables();
+        //Holds the random from the previous hand
+        this.lastRand = -1;
     },
     initVariables: function()
     {
         //Choose a random value in the indices of available hands
         this.rand = Math.floor(Math.random() * this.pokerData.Hands.length);
+        //Check that the new Rand is different than the laast one
+        while(this.rand === this.lastRand)
+        {
+            this.rand = Math.floor(Math.random() * this.pokerData.Hands.length);
+        }
         //Initialize bet variables
         this.totalBet = 0;
         this.betAmount = 15 - (this.rounds * 5);
@@ -39,6 +46,7 @@ Poker.GameState = {
         else
         {
             console.log('over');
+            this.state.start('End');
         }
     },
     initButtons: function()
@@ -191,6 +199,7 @@ Poker.GameState = {
     },
     runGlowSequence: function(canWin)
     {
+        this.input.enabled = false;
         //Stores the player text tween and removal tween
         let playerLast = this.addText(800, 500, this.winText[0], false);
         //Goes through the cards used to make the hand and creates the tween for the glow effect
@@ -250,6 +259,7 @@ Poker.GameState = {
             let announcement = this.add.tween(announce.scale).to({x: 1, y: 1}, 2000, "Linear");
             announcement.onComplete.add(function()
             {
+                this.input.enabled = true;
                 //Allows player to continue to next screen
                 let continueOn = this.add.button(x+100, y+100, 'bet', function()
                 {
@@ -284,7 +294,11 @@ Poker.GameState = {
         {
             this.fiveCard[i].sprite.destroy();
         }
+        this.hand = new Array();
+        this.dealerHand = new Array();
+        this.fiveCard = new Array(); 
         
+        this.lastRand = this.rand;
         this.rounds++;
         this.initVariables();
     },

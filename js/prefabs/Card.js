@@ -9,14 +9,20 @@ Poker.Card = function(state) {
      
      Poker.Card.prototype.init = function(texture)
      {
-         //All cards have the texture->card face, suit, value (number), sprite
-         this.texture = texture;
-         this.suit = this.setSuit(texture);
-         this.value = this.setValue(texture, this.suit);
-         this.sprite = null;
-         this.glow = null;
+         //Ensures that a card is not being passed in
+         if(typeof(texture) === "string")
+         {
+             //All cards have the texture->card face, suit, value (number), sprite
+            this.texture = texture;
+            this.suit = this.setSuit(texture);
+            this.value = this.setValue(texture, this.suit);
+            this.sprite = null;
+            this.glow = null;
          
-         return this;
+            return this;
+         }
+         
+         return texture;
      };
      Poker.Card.prototype.setSuit = function(textureString)
      {

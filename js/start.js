@@ -19,6 +19,7 @@ if(Phaser.Device.ie) //Checks that internet explorer is being used
         Poker.game.state.add('Preload', Poker.PreloadState); 
         Poker.game.state.add('Game', Poker.GameState);
         Poker.game.state.add('Story', Poker.StoryState);
+        Poker.game.state.add('End', Poker.EndState);
 
         Poker.game.state.start('Cache'); 
     }
@@ -32,6 +33,7 @@ else
     Poker.game.state.add('Preload', Poker.PreloadState); 
     Poker.game.state.add('Game', Poker.GameState);
     Poker.game.state.add('Story', Poker.StoryState);
+    Poker.game.state.add('End', Poker.EndState);
 
     Poker.game.state.start('Cache');
 }

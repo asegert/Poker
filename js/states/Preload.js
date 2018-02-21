@@ -75,6 +75,8 @@ Poker.PreloadState = {
         this.load.image('instructions', 'assets/images/instructions.png');
         this.load.image('winner', 'assets/images/winner.png');
         this.load.image('loser', 'assets/images/loser.png');
+        this.load.image('end', 'assets/images/endScreen.png');
+        this.load.image('coupon', 'assets/images/coupon.png');
         
         this.load.text('pokerData', 'assets/data/poker.json');
         
