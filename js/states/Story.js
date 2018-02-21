@@ -3,7 +3,12 @@ var Poker = Poker || {};
 Poker.StoryState = {
     create: function ()
     {
-        this.game.state.start('Game');
+        this.add.sprite(0, 0, 'instructions');
+        let start = this.add.button(400, 550, 'bet', function()
+        {
+            this.game.state.start('Game');
+        }, this);
+        start.scale.setTo(0.5, 0.5);
     }
 };
 /*Copyright (C) Wayside Co. - All Rights Reserved

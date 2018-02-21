@@ -189,60 +189,37 @@ Poker.GameState = {
         console.log('endGame');
         console.log(this.flipped);
     },
-    runGlowSequence: function(canWin)//run smoother plz----smooth text creation
+    runGlowSequence: function(canWin)
     {
-        //Player text to state the hand name and remove it later
-        let playerText = this.add.text(800, 500, this.winText[0], {fill: '#FF0000', font: '50px Arial'});
-        playerText.anchor.setTo(0.5, 0.5);
-        playerText.alpha = 0;
-        let playerDeclaration = this.add.tween(playerText).to({alpha: 1}, 2000, "Linear");
-        let playerRemove = this.add.tween(playerText).to({alpha: 0}, 100, "Linear");
+        //Stores the player text tween and removal tween
+        let playerLast = this.addText(800, 500, this.winText[0], false);
         //Goes through the cards used to make the hand and creates the tween for the glow effect
         //Tweens are then chained to the text tween and each other to create the full animation
-        console.log(this.pokerData.Glow[this.rand]);
-        last  = this.addToChain(playerDeclaration, this.pokerData.Glow[this.rand][0]);
-        
-        
-        //Dealer text to state the hand name and remove it later
-        let dealerText = this.add.text(160, 150, this.winText[1], {fill: '#FF0000', font: '50px Arial'});
-        let dealerRemove = this.add.tween(dealerText).to({alpha: 0}, 100, "Linear");
-        dealerText.anchor.setTo(0.5, 0.5);
-        dealerText.alpha = 0;
-        let dealerDeclaration = this.add.tween(dealerText).to({alpha: 1}, 2000, "Linear");
-        
-        last.chain(playerRemove);
-        playerRemove.chain(dealerDeclaration);
-        
-        last  = this.addToChain(dealerDeclaration, this.pokerData.Glow[this.rand][1]);
-        
-        last.chain(dealerRemove);
-        
-        let announceText = this.add.text(this.world.centerX, this.world.centerY, "You Win!", {fill: '#FF0000', font: '50px Arial'});
-        
-        if(this.rounds < 3 || !canWin)
+        last  = this.addToChain(playerLast[0], this.pokerData.Glow[this.rand][0]);
+        //Stores the dealer text tween and removal tween
+        let dealerLast = this.addText(160, 150, this.winText[1], false);
+        //Chain the animations together
+        last.chain(playerLast[1]);
+        playerLast[1].chain(dealerLast[0]);
+        //Create the dealer animations
+        last  = this.addToChain(dealerLast[0], this.pokerData.Glow[this.rand][1]);
+        //Chain the animations together
+        last.chain(dealerLast[1]);
+        //Based on whether or not a win occurs create the announcement animations
+        let announceLast;
+        if(this.rounds < 3 || !canWin)//Add new images potentially one for folding
         {
-            announceText.setText("You Lose!");
+            announceLast = this.addText(this.world.centerX, this.world.centerY, 'loser', true);
         }
-        announceText.alpha = 0;
-        announceText.anchor.setTo(0.5, 0.5);
-        announceText.scale.setTo(0.1, 0.1);
-        let announceAlpha = this.add.tween(announceText).to({alpha: 1}, 100, "Linear");
-        let announcement = this.add.tween(announceText.scale).to({x: 1, y: 1}, 2000, "Linear");
-        announcement.onComplete.add(function()
+        else
         {
-            //Remove all text for animation
-            playerText.destroy();
-            dealerText.destroy();
-            announceText.destroy();
-            this.destroyHands();
-            //function call to remove cards and up round to start over
-        }, this);
-        
-        dealerRemove.chain(announceAlpha);
-        announceAlpha.chain(announcement);
-        
-        
-        playerDeclaration.start();
+            announceLast = this.addText(this.world.centerX, this.world.centerY, 'winner', true);
+        }
+        //Chain the animations
+        dealerLast[1].chain(announceLast[0]);
+        announceLast[0].chain(announceLast[1]);
+        //Run the animation
+        playerLast[0].start();
     },
     addToChain: function(last, data)
     {
@@ -259,6 +236,42 @@ Poker.GameState = {
             }
         }
         return last;
+    },
+    addText: function(x, y, content, scale)
+    {
+        if(scale)
+        {
+            //Creates the image to inform if winner or not
+            let announce = this.add.sprite(x, y, content);
+            announce.alpha = 0;
+            announce.anchor.setTo(0.5, 0.5);
+            announce.scale.setTo(0.1, 0.1);
+            let announceAlpha = this.add.tween(announce).to({alpha: 1}, 100, "Linear");
+            let announcement = this.add.tween(announce.scale).to({x: 1, y: 1}, 2000, "Linear");
+            announcement.onComplete.add(function()
+            {
+                //Allows player to continue to next screen
+                let continueOn = this.add.button(x+100, y+100, 'bet', function()
+                {
+                    announce.destroy();
+                    continueOn.destroy();
+                    this.destroyHands();
+                }, this);
+            }, this);
+            //Add a button to continue to next round that calls this.destroyHands();
+            
+            return [announceAlpha, announcement];
+        }
+        else
+        {
+            let handText = this.add.text(x, y, content, {fill: '#FF0000', font: '50px Arial'});
+            handText.anchor.setTo(0.5, 0.5);
+            handText.alpha = 0;
+            let handDeclaration = this.add.tween(handText).to({alpha: 1}, 2000, "Linear");
+            let handRemove = this.add.tween(handText).to({alpha: 0}, 100, "Linear");
+            
+            return [handDeclaration, handRemove];
+        }
     },
     destroyHands: function()
     {
