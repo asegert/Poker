@@ -7,6 +7,7 @@ Poker.GameState = {
         this.background = this.add.sprite(0, 0, "background");
         this.pokerData = JSON.parse(this.game.cache.getText('pokerData'));
         this.rounds = 1;
+        this.betText = this.add.text(40, 50, "Current Bet: $0", {fill: '#FFFFFF'});
         //InitializeButtons
         this.initButtons();
         //Initialize round variables
@@ -20,7 +21,7 @@ Poker.GameState = {
         this.totalBet = 0;
         this.betAmount = 15 - (this.rounds * 5);
         this.betAmount === 0 ? this.betAmount = 1:this.betAmount = this.betAmount;
-        this.betText = this.add.text(40, 50, "Current Bet: $0", {fill: '#FFFFFF'});
+        this.betText.setText("Current Bet: $0");
         //Boolean to start the glow sequence
         this.glowSequence = false;
         //Boolean check for which cards still need flipped of the 5
@@ -29,6 +30,15 @@ Poker.GameState = {
         if(this.rounds < 3)
         {
             this.setCardsRandom();
+        }
+        else if(this.rounds === 3)
+        {
+            console.log('final hand');
+            this.setCardsFinal();
+        }
+        else
+        {
+            console.log('over');
         }
     },
     initButtons: function()
@@ -57,7 +67,7 @@ Poker.GameState = {
             
             if(!found)
             {
-                this.endGame();
+                this.endGame(true);
             }
         }, this);
         
@@ -85,7 +95,7 @@ Poker.GameState = {
             
             if(!found)
             {
-                this.endGame();
+                this.endGame(true);
             }
         }, this);
         
@@ -102,7 +112,7 @@ Poker.GameState = {
                 }
             }
             
-            this.endGame();
+            this.endGame(false);
         }, this);
         
         this.fold.scale.setTo(0.6, 0.6);
@@ -114,6 +124,22 @@ Poker.GameState = {
         this.dealerHand = this.pokerData.Dealer[this.rand];
         this.fiveCard = this.pokerData.FiveCard[this.rand];
         this.winText = this.pokerData.WinText[this.rand];
+        
+        this.prepCards();
+    },
+    setCardsFinal: function()
+    {
+        //Set card arrays
+        this.hand = this.pokerData.FinalHand;
+        this.dealerHand = this.pokerData.FinalDealer;
+        this.fiveCard = this.pokerData.FinalFiveCard;
+        this.winText = this.pokerData.FinalWin;
+        
+        this.prepCards();
+    },
+    prepCards: function()
+    {
+        this.rand = this.pokerData.Glow.length-1;
         //Create the cards for the arrays
         this.hand = this.createCards(this.hand);
         this.dealerHand = this.createCards(this.dealerHand);
@@ -122,7 +148,6 @@ Poker.GameState = {
         this.displayCards(this.hand, 400, 520, 200, false, 0.8);
         this.displayCards(this.dealerHand, 400, 130, 200, true, 0.8);
         this.displayCards(this.fiveCard, 300, 330, 100, true, 0.6);
-        
     },
     createCards: function(cardArray)
     {
@@ -144,7 +169,7 @@ Poker.GameState = {
             cardArray[i].addSprite((startX + i*offset), startY, flip, scale);
         }
     },
-    endGame: function()
+    endGame: function(canWin)
     {
         this.dealerHand.forEach(function(card)
         {
@@ -160,19 +185,20 @@ Poker.GameState = {
                 card.flipSprite();
             }
         }, this);
-        this.glowSequence = true;
-        this.runGlowSequence();
+        this.runGlowSequence(canWin);
         console.log('endGame');
         console.log(this.flipped);
     },
-    runGlowSequence: function()
+    runGlowSequence: function(canWin)//run smoother plz
     {
-        let playerText = this.add.text(800, 500, this.pokerData.WinText[this.rand][0], {fill: '#FF0000', font: '50px Arial'});
+        //Player text to state the hand name and remove it later
+        let playerText = this.add.text(800, 500, this.winText[0], {fill: '#FF0000', font: '50px Arial'});
         playerText.anchor.setTo(0.5, 0.5);
         playerText.alpha = 0;
         let playerDeclaration = this.add.tween(playerText).to({alpha: 1}, 2000, "Linear");
         let playerRemove = this.add.tween(playerText).to({alpha: 0}, 100, "Linear");
-        
+        //Goes through the cards used to make the hand and creates the tween for the glow effect
+        //Tweens are then chained to the text tween and each other to create the full animation
         let data = this.pokerData.Glow[this.rand][0];
         let last = playerDeclaration;
         for(let i = 0, len = data.length; i<len; i++)
@@ -187,10 +213,8 @@ Poker.GameState = {
                 last=glowOut;
             }
         }
-        
-        
-        
-        let dealerText = this.add.text(160, 150, this.pokerData.WinText[this.rand][1], {fill: '#FF0000', font: '50px Arial'});
+        //Dealer text to state the hand name and remove it later
+        let dealerText = this.add.text(160, 150, this.winText[1], {fill: '#FF0000', font: '50px Arial'});
         let dealerRemove = this.add.tween(dealerText).to({alpha: 0}, 100, "Linear");
         dealerText.anchor.setTo(0.5, 0.5);
         dealerText.alpha = 0;
@@ -215,7 +239,48 @@ Poker.GameState = {
             }
         }
         last.chain(dealerRemove);
+        
+        let announceText = this.add.text(this.world.centerX, this.world.centerY, "You Win!", {fill: '#FF0000', font: '50px Arial'});
+        
+        if(this.rounds < 3 || !canWin)
+        {
+            announceText.setText("You Lose!");
+        }
+        announceText.alpha = 0;
+        announceText.anchor.setTo(0.5, 0.5);
+        announceText.scale.setTo(0.1, 0.1);
+        let announceAlpha = this.add.tween(announceText).to({alpha: 1}, 100, "Linear");
+        let announcement = this.add.tween(announceText.scale).to({x: 1, y: 1}, 2000, "Linear");
+        announcement.onComplete.add(function()
+        {
+            //Remove all text for animation
+            playerText.destroy();
+            dealerText.destroy();
+            announceText.destroy();
+            this.destroyHands();
+            //function call to remove cards and up round to start over
+        }, this);
+        
+        dealerRemove.chain(announceAlpha);
+        announceAlpha.chain(announcement);
+        
+        
         playerDeclaration.start();
+    },
+    destroyHands: function()
+    {
+        for(let i=0, len = this.dealerHand.length; i<len; i++)
+        {
+            this.dealerHand[i].sprite.destroy();
+            this.hand[i].sprite.destroy();
+        }
+        for(let i=0, len = this.fiveCard.length; i<len; i++)
+        {
+            this.fiveCard[i].sprite.destroy();
+        }
+        
+        this.rounds++;
+        this.initVariables();
     },
     update: function ()
     {

@@ -41,7 +41,8 @@
                 [[false, false, false, false, true], [true, false, false, true, true]],
                 [[true, false, false, false, true], [false, true, false, true, false]],
                 [[false, false, false, false, true], [false, true, true, true, false]],
-                [[false, false, false, false, false], [false, false, true, true, false]]
+                [[false, false, false, false, false], [false, false, true, true, false]],
+                [[false, true, false, true, true], [true, false, true, false, true]]
            ],
     "WinText":[
                 ["Straight\nFlush", "Royal\nFlush"],
@@ -55,7 +56,7 @@
                 ["HighCard", "2 Pair"]
               ],
     "FinalHand":["club10", "clubA"],
-    "FinalDealer":["club4", "clubJ"],
+    "FinalDealer":["club4", "spadeJ"],
     "FinalFiveCard":["diamond4", "clubQ", "heartJ", "clubK", "clubJ"],
     "FinalWin":["Royal\nFlush", "Full\nHouse"]
 }
