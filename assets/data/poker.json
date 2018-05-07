@@ -32,6 +32,28 @@
                 ["heart7", "spadeJ", "spade2", "spade3", "club4"],
                 ["spadeJ", "heartA", "club2", "diamond5", "diamond7"]
                ],
+    "PlayerHands":[
+                ["heartQ", "heart8", "heart9", "heart10", "heartK"],
+                ["diamond2", "diamond6", "spadeQ", "club2", "diamond4"],
+                ["heartK", "spadeJ", "spadeK", "spade9", "diamond8"],
+                ["diamondJ", "heart10", "diamondQ", "diamond2", "diamondA"],
+                ["club8", "club6", "diamond2", "heartJ", "club9"],
+                ["spade3", "clubJ", "diamondA", "spade4", "spade6"],
+                ["heart8", "club7", "spadeA", "spade7", "heart3"],
+                ["heart7", "spadeJ", "spade2", "spade3", "club4"],
+                ["spadeJ", "heartA", "club6", "diamond5", "diamond7"]
+               ],
+    "AdditionalCards":[
+                ["spadeQ", "heart2", "diamond3", "heart4", "clubK"],
+                ["diamond7", "club6", "spade7", "club3", "diamond5"],
+                ["heart2", "spadeQ", "spade5", "diamond9", "club4"],
+                ["clubJ", "heart3", "diamond4", "heart5", "spadeA"],
+                ["clubK", "spade4", "diamondA", "heartQ", "club7"],
+                ["spadeK", "clubQ", "diamond2", "spade7", "club6"],
+                ["heart2", "diamond7", "spade4", "spade8", "heart9"],
+                ["heartJ", "diamond3", "spadeA", "heartK", "heart4"],
+                ["spadeQ", "heart2", "club4", "diamond6", "spade9"]
+               ],
     "Glow":[
                 [[false, true, true, true, false], [true, false, false, true, true]],
                 [[true, false, false, true, false], [true, true, false, false, true]],

@@ -3,7 +3,7 @@ var Poker = Poker || {};
 
 
 Poker.Hand = function(state) {
-     //Intalizes state side data locally
+     //Initalizes state side data locally
      this.state = state;
      this.game = state.game; 
      
@@ -13,11 +13,15 @@ Poker.Hand = function(state) {
          
          return this;
      };
-     Poker.Hand.prototype.addCard = function(card)
+     Poker.Hand.prototype.addCard = function(card, index)
      {
-         if(this.hand.length < 6)
+         if(this.hand.length < 6 && index === null)
          {
              this.hand[this.hand.length] = card;
+         }
+         else if(index<5)
+         {
+             this.hand[index] = card;
          }
      };
      Poker.Hand.prototype.sameSuit = function()
@@ -157,7 +161,7 @@ Poker.Hand = function(state) {
     };
     Poker.Hand.prototype.getDealerHand = function()
     {
-        //Use player hand to choose better or worse hand
+        //Use player hand to choose better or worse hand 
     };
 };
     

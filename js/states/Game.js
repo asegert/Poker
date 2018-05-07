@@ -19,6 +19,7 @@ Poker.GameState = {
         //Testing
         this.hand = new Poker.Hand(this);
         this.hand.init(this.createCards(this.pokerData.FiveCard[0]));
+        this.displayCards(this.hand.hand, 270, 520, 150, false, 0.8)
         console.log(this.hand.checkHand());
         
         
@@ -96,20 +97,13 @@ Poker.GameState = {
         this.call.scale.setTo(0.7, 0.7);
         
         //Fold Button
-        this.fold = this.add.button(50, 550, 'fold', function()
+        this.fold = this.add.button(50, 250, 'cardBack', function()
         {
-            for(let i =0; i<5; i++)
-            {
-                if(!this.flipped[i])
-                {
-                    this.flipped[i] = true;
-                }
-            }
-            
-            this.endGame(false);
+            console.log('swap');
+            //Choose the cards to swap then replace them with new cards
         }, this);
         
-        this.fold.scale.setTo(0.6, 0.6);
+        this.fold.scale.setTo(0.8, 0.8);
     },
     setCardsRandom: function()
     {
@@ -139,7 +133,6 @@ Poker.GameState = {
         this.dealerHand = this.createCards(this.dealerHand);
         this.fiveCard = this.createCards(this.fiveCard);
         
-        this.displayCards(this.hand, 400, 520, 200, false, 0.8);
         this.displayCards(this.dealerHand, 400, 130, 200, true, 0.8);
         this.displayCards(this.fiveCard, 300, 330, 100, true, 0.6);
     },
