@@ -7,7 +7,6 @@ Poker.GameState = {
         this.background = this.add.sprite(0, 0, "background");
         this.pokerData = JSON.parse(this.game.cache.getText('pokerData'));
         this.rounds = 1;
-        this.betText = this.add.text(40, 50, "Current Bet: $0", {fill: '#FFFFFF'});
         //InitializeButtons
         this.initButtons();
         //Initialize round variables
@@ -17,6 +16,12 @@ Poker.GameState = {
     },
     initVariables: function()
     {
+        //Testing
+        this.hand = new Poker.Hand(this);
+        this.hand.init(this.createCards(this.pokerData.FiveCard[0]));
+        console.log(this.hand.checkHand());
+        
+        
         //Choose a random value in the indices of available hands
         this.rand = Math.floor(Math.random() * this.pokerData.Hands.length);
         //Check that the new Rand is different than the laast one
@@ -24,11 +29,6 @@ Poker.GameState = {
         {
             this.rand = Math.floor(Math.random() * this.pokerData.Hands.length);
         }
-        //Initialize bet variables
-        this.totalBet = 0;
-        this.betAmount = 15 - (this.rounds * 5);
-        this.betAmount === 0 ? this.betAmount = 1:this.betAmount = this.betAmount;
-        this.betText.setText("Current Bet: $0");
         //Boolean to start the glow sequence
         this.glowSequence = false;
         //Boolean check for which cards still need flipped of the 5
@@ -55,28 +55,14 @@ Poker.GameState = {
         //Bet Button
         this.bet = this.add.button(50, 420, 'bet', function()
         {
-            let found = false;
-            for(let i = 0; i<5; i++)
+            var hint = this.add.sprite(90, 100, 'hint');
+            var button = this.add.button(700, 500, 'bet', function()
             {
-                if(!this.flipped[i])
-                {
-                    this.fiveCard[i].flipSprite();
-                    this.flipped[i] = true;
-                    found = true;
-                    this.totalBet += this.betAmount;
-                    //If the last card has been flipped end the game
-                    if(i===4)
-                    {
-                        found = false;
-                    }
-                    break;
-                }
-            }
-            
-            if(!found)
-            {
-                this.endGame(true);
-            }
+                hint.kill();
+                button.kill();
+            }, this);
+            button.scale.setTo(0.4, 0.4);
+            console.log('hint');
         }, this);
         
         this.bet.scale.setTo(0.4, 0.4);
@@ -304,7 +290,6 @@ Poker.GameState = {
     },
     update: function ()
     {
-        this.betText.setText("Current Bet: $"+this.totalBet);
     }
 };
 /*Copyright (C) Wayside Co. - All Rights Reserved

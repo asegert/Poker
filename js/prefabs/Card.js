@@ -54,7 +54,7 @@ Poker.Card = function(state) {
          {
              if(num === "A")
              {
-                 return 1;
+                 return 14;
              }
              else if(num === "J")
              {
