@@ -8,6 +8,7 @@ Poker.PreloadState = {
         this.load.setPreloadSprite(preloadProgress);
 
         this.load.image('background', 'assets/images/background.png');
+        this.load.image('hint', 'assets/images/hint.png');
         
         //Cards
         this.load.image('diamond2', 'assets/images/cardDiamonds2.png');
