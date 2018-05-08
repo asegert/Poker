@@ -16,6 +16,7 @@ Poker.GameState = {
         
         this.swap = false;
         this.trade=new Array();
+        this.handIndex = 0;
     },
     initVariables: function()
     {
@@ -101,6 +102,39 @@ Poker.GameState = {
         }, this);
         
         this.fold.scale.setTo(0.8, 0.8);
+        
+        //Trade Button
+        this.tradeButton = this.add.button(350, 250, 'fold', function()
+        {
+            //Choose the cards to swap then replace them with new cards
+            console.log('trade');
+            
+            for(var i=0, len=this.trade.length; i<len; i++)
+            {
+                var rand = Math.floor(Math.random() * this.pokerData.AdditionalCards[this.handIndex].length);
+                
+                if(this.pokerData.AdditionalCards[this.handIndex][rand]===null)
+                {
+                    i--;
+                }
+                else
+                {
+                    this.trade[i].changeCard(this.pokerData.AdditionalCards[this.handIndex][rand]);
+                    this.pokerData.AdditionalCards[this.handIndex][rand]=null;
+                    this.trade[i].glow.kill();
+                    this.trade[i].glow=null;
+                }
+            }
+            this.trade = new Array();
+            this.tradeButton.inputEnabled = false;
+            this.tradeButton.alpha=0;
+            console.log(this.trade);
+            this.swap=false;
+        }, this);
+        
+        this.tradeButton.scale.setTo(0.8, 0.8);
+        this.tradeButton.alpha=0;
+        this.tradeButton.inputEnabled=false;
     },
     setCardsRandom: function()
     {

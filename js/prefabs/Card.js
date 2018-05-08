@@ -26,9 +26,11 @@ Poker.Card = function(state) {
      };
      Poker.Card.prototype.changeCard = function(texture)
      {
+         console.log(texture);
          this.texture = texture;
          this.suit = this.setSuit(texture);
          this.value = this.setValue(texture, this.suit);
+         this.sprite.loadTexture(texture);
      };
      Poker.Card.prototype.setSuit = function(textureString)
      {
@@ -100,12 +102,15 @@ Poker.Card = function(state) {
          {
              if(this.state.swap)
              {
-                 console.log(this.glow);
+                 if(this.state.trade.length === 0)
+                 {
+                     this.state.tradeButton.inputEnabled = true;
+                     this.state.tradeButton.alpha = true;
+                 }
                  if(this.glow===null)
                  {
                      this.addGlow();
                      this.state.trade[this.state.trade.length] = this;
-                     console.log(this.state.trade);
                  }
                  else
                  {
