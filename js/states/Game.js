@@ -17,6 +17,7 @@ Poker.GameState = {
         this.swap = false;
         this.trade=new Array();
         this.handIndex = 0;
+        this.nulls = 0;
     },
     initVariables: function()
     {
@@ -112,8 +113,13 @@ Poker.GameState = {
             for(var i=0, len=this.trade.length; i<len; i++)
             {
                 var rand = Math.floor(Math.random() * this.pokerData.AdditionalCards[this.handIndex].length);
-                
-                if(this.pokerData.AdditionalCards[this.handIndex][rand]===null)
+                console.log(this.nulls);
+                if(this.nulls === this.pokerData.AdditionalCards[this.handIndex].length)
+                {
+                    this.trade[i].glow.kill();
+                    this.trade[i].glow=null;
+                }
+                else if(this.pokerData.AdditionalCards[this.handIndex][rand]===null)
                 {
                     i--;
                 }
@@ -123,6 +129,7 @@ Poker.GameState = {
                     this.pokerData.AdditionalCards[this.handIndex][rand]=null;
                     this.trade[i].glow.kill();
                     this.trade[i].glow=null;
+                    this.nulls++;
                 }
             }
             this.trade = new Array();
