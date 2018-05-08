@@ -94,5 +94,5 @@
     "FinalFiveCard":["diamond4", "clubQ", "heartJ", "clubK", "clubJ"],
     "FinalWin":["Royal\nFlush", "Full\nHouse"],
     "Trades": 1,
-    "WinHands": ["Lose", "Win", "Win"]
+    "WinHands": ["Lose", "Lose", "Win"]
 }

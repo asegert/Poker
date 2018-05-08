@@ -131,6 +131,7 @@ Poker.GameState = {
         {
             //Choose the cards to swap then replace them with new cards
             console.log('trade');
+            this.noTrade.destroy();
             this.trades++;
             
             for(var i=0, len=this.trade.length; i<len; i++)
@@ -158,6 +159,7 @@ Poker.GameState = {
             this.tradeButton.inputEnabled = false;
             this.tradeButton.alpha=0;
             this.swap=false;
+            this.hand.getDealerHand();
         }, this);
         
         this.tradeButton.scale.setTo(0.8, 0.8);
