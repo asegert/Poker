@@ -131,6 +131,7 @@ Poker.Card = function(state) {
      };
     Poker.Card.prototype.flipSprite = function()
     {
+        console.log(this);
         let x = this.sprite.scale.x;
         let flipStart = this.state.add.tween(this.sprite.scale).to({x: 0}, 300, "Linear", true);
         flipStart.onComplete.add(function()

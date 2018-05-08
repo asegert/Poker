@@ -96,16 +96,16 @@ Poker.Hand = function(state) {
             {
                 if(ordered[i].value != ordered[i-1].value+1)
                 {
-                    return "Flush";
+                    return 4;
                 }
             }
             if(ordered[0].value===10)
             {
-                return "Royal Flush";
+                return 0;
             }
             else
             {
-                return "Straight Flush";
+                return 1;
             }
         }
         else
@@ -120,14 +120,14 @@ Poker.Hand = function(state) {
                 {
                     if(ordered[i].value != ordered[i-1].value+1)
                     {
-                        return "HighCard";
+                        return 9;
                     }
                 }
-                return "Straight";
+                return 5;
             }
             else if(ordered.length === 4)
             {
-                return "1 Pair";
+                return 8;
             }
             else if(ordered.length === 3)
             {
@@ -135,11 +135,11 @@ Poker.Hand = function(state) {
                 {
                     if(ordered[i].length === 3)
                     {
-                        return "3 Of A Kind";
+                        return 6;
                     }
                     else if(ordered[i].length === 2)
                     {
-                        return "2 Pair";
+                        return 7;
                     }
                 }
             }
@@ -149,11 +149,11 @@ Poker.Hand = function(state) {
                 {
                     if(ordered[i].length === 4)
                     {
-                        return "4 Of A Kind";
+                        return 2;
                     }
                     else if(ordered[i].length === 3)
                     {
-                        return "Full House";
+                        return 3;
                     }
                 }
             }
@@ -163,6 +163,35 @@ Poker.Hand = function(state) {
     {
         //Use player hand to choose better or worse hand 
         var handType = this.checkHand();
+        if(this.state.pokerData.WinHands[this.state.rounds] === "Lose")
+        {
+            var rand = Math.floor(Math.random() * handType);
+            
+            for(var i=0; i<5; i++)
+            {
+                if(rand!=0)
+                {
+                    this.state.dealerHand.hand[i].changeCard(this.state.pokerData.DealerHands[rand][i]);
+                }
+                this.state.dealerHand.hand[i].flipSprite();
+            }
+        }
+        else
+        {
+            var rand = Math.floor(Math.random() * (this.state.pokerData.DealerHands.length-(handType+1)));
+            var dealer = this.state.pokerData.DealerHands;
+            dealer.reverse();
+            console.log(dealer);
+            
+            for(var i=0; i<5; i++)
+            {
+                if(rand!=this.state.pokerData.DealerHands.length-1)
+                {
+                    this.state.dealerHand.hand[i].changeCard(dealer[rand][i]);
+                }
+                this.state.dealerHand.hand[i].flipSprite();
+            }
+        }
     };
 };
     
