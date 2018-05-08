@@ -91,5 +91,6 @@
     "FinalHand":["club10", "clubA"],
     "FinalDealer":["club4", "spadeJ"],
     "FinalFiveCard":["diamond4", "clubQ", "heartJ", "clubK", "clubJ"],
-    "FinalWin":["Royal\nFlush", "Full\nHouse"]
+    "FinalWin":["Royal\nFlush", "Full\nHouse"],
+    "Trades": 1
 }

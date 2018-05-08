@@ -162,6 +162,7 @@ Poker.Hand = function(state) {
     Poker.Hand.prototype.getDealerHand = function()
     {
         //Use player hand to choose better or worse hand 
+        var handType = this.checkHand();
     };
 };
     

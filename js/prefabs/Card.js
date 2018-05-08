@@ -100,8 +100,12 @@ Poker.Card = function(state) {
          this.sprite.inputEnabled = true;
          this.sprite.events.onInputDown.add(function()
          {
-             if(this.state.swap)
+             if(this.state.swap && this.state.trades < this.state.pokerData.Trades)
              {
+                 if(this.state.arrow!=undefined)
+                 {
+                     this.state.arrow.destroy();
+                 }
                  if(this.state.trade.length === 0)
                  {
                      this.state.tradeButton.inputEnabled = true;

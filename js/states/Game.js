@@ -18,6 +18,7 @@ Poker.GameState = {
         this.trade=new Array();
         this.handIndex = 0;
         this.nulls = 0;
+        this.trades = 0;
     },
     initVariables: function()
     {
@@ -97,23 +98,44 @@ Poker.GameState = {
         //Fold Button
         this.fold = this.add.button(50, 250, 'cardBack', function()
         {
+            if(this.trades<this.pokerData.Trades)
+            {
+                this.arrow.destroy();
+                this.arrow = this.add.sprite(230, 440, 'arrow');
+                this.arrow.rotation=-1.58;
+                this.arrow.scale.setTo(0.5, 0.5);
+            
+                this.arrow.addChild(this.add.sprite(-5, 300, 'arrow'));
+                this.arrow.addChild(this.add.sprite(-5, 600, 'arrow'));
+                this.arrow.addChild(this.add.sprite(-5, 900, 'arrow'));
+                this.arrow.addChild(this.add.sprite(-5, 1200, 'arrow'));
+                var text = this.add.text(300, 300, 'Choose the Cards to Trade');
+                text.rotation = +1.58;
+                text.scale.setTo(2, 2);
+                this.arrow.addChild(text);
+            
+                var tween = this.add.tween(this.arrow).to({y:this.arrow.y+10}, 500, "Linear", true, 0, -1);
+                tween.yoyo(true);
+            }
+            
             this.swap=!this.swap;
             console.log('swap');
             //Choose the cards to swap then replace them with new cards
         }, this);
         
         this.fold.scale.setTo(0.8, 0.8);
+        this.fold.inputEnabled = false;
         
         //Trade Button
         this.tradeButton = this.add.button(350, 250, 'fold', function()
         {
             //Choose the cards to swap then replace them with new cards
             console.log('trade');
+            this.trades++;
             
             for(var i=0, len=this.trade.length; i<len; i++)
             {
                 var rand = Math.floor(Math.random() * this.pokerData.AdditionalCards[this.handIndex].length);
-                console.log(this.nulls);
                 if(this.nulls === this.pokerData.AdditionalCards[this.handIndex].length)
                 {
                     this.trade[i].glow.kill();
@@ -135,7 +157,6 @@ Poker.GameState = {
             this.trade = new Array();
             this.tradeButton.inputEnabled = false;
             this.tradeButton.alpha=0;
-            console.log(this.trade);
             this.swap=false;
         }, this);
         
@@ -147,22 +168,28 @@ Poker.GameState = {
     {
         //Testing
         this.hand = new Poker.Hand(this);
-        this.hand.init(this.createCards(this.pokerData.FiveCard[0]));
+        this.hand.init(this.createCards(this.pokerData.PlayerHands[0]));
         this.displayCards(this.hand.hand, 270, 520, 150, true, 0.8);
+        this.dealerHand = new Poker.Hand(this);
+        this.dealerHand.init(this.createCards(this.pokerData.DealerHands[0]));
+        this.displayCards(this.dealerHand.hand, 270, 130, 150, true, 0.8);
         //Add dealer->true
         console.log(this.hand.checkHand());
-        //Set card arrays
-        /*this.hand = this.pokerData.Hands[this.rand];
-        this.dealerHand = this.pokerData.Dealer[this.rand];
-        this.fiveCard = this.pokerData.FiveCard[this.rand];
-        this.winText = this.pokerData.WinText[this.rand];
-        
-        this.prepCards();*/
         var count = 0;
-        this.game.time.events.repeat(Phaser.Timer.SECOND, 5, function()
+        this.game.time.events.repeat(Phaser.Timer.SECOND*0.5, 5, function()
         {
             this.hand.hand[count].flipSprite();
             count++;
+        }, this);
+        
+        this.game.time.events.add(Phaser.Timer.SECOND*3.5, function()
+        {
+            this.fold.inputEnabled=true;
+            this.arrow = this.add.sprite(150, 250, 'arrow');
+            this.arrow.addChild(this.add.text(150, 60, "Trade Cards"));
+            var tween = this.add.tween(this.arrow).to({x:this.arrow.x+10}, 500, "Linear", true, 0, -1);
+            tween.yoyo(true);
+            
         }, this);
     },
     setCardsFinal: function()
@@ -209,13 +236,6 @@ Poker.GameState = {
     endGame: function(canWin)
     {
         this.dealerHand.forEach(function(card)
-        {
-            if(card.sprite.key != card.texture)
-            {
-                card.flipSprite();
-            }
-        }, this);
-        this.fiveCard.forEach(function(card)
         {
             if(card.sprite.key != card.texture)
             {
