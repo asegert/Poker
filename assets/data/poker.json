@@ -79,15 +79,16 @@
                 [[false, true, false, true, true], [true, false, true, false, true]]
            ],
     "WinText":[
-                ["Straight\nFlush", "Royal\nFlush"],
-                ["4 of a Kind", "Straight\nFlush"],
-                ["Full\nHouse", "Royal\nFlush"],
-                ["Flush", "Royal\nFlush"],
-                ["Straight", "Straight\nFlush"],
-                ["3 of a Kind", "Straight\nFlush"],
-                ["2 pair", "3 of a Kind"],
-                ["Pair", "Flush"],
-                ["HighCard", "2 Pair"]
+                ["High Card"],
+                ["1 Pair"],
+                ["2 Pair"],
+                ["3 of a Kind"],
+                ["Straight"],
+                ["Flush"],
+                ["Full House"],
+                ["4 of a Kind"],
+                ["Straight Flush"],
+                ["Royal Flush"]
               ],
     "FinalHand":["club10", "clubA"],
     "FinalDealer":["club4", "spadeJ"],
