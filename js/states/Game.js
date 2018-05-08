@@ -190,6 +190,22 @@ Poker.GameState = {
             var tween = this.add.tween(this.arrow).to({x:this.arrow.x+10}, 500, "Linear", true, 0, -1);
             tween.yoyo(true);
             
+            this.noTrade = this.add.button(700, 300, 'bet', function()
+            {
+                for(var i=0, len=this.hand.hand.length; i<len; i++)
+                {
+                    if(this.hand.hand[i].glow != null)
+                    {
+                        this.hand.hand[i].glow.destroy();
+                        this.hand.hand[i].glow=null;
+                    }
+                }
+                this.noTrade.destroy();
+                this.arrow.destroy();
+                this.hand.getDealerHand();
+            }, this);
+            this.noTrade.scale.setTo(0.5, 0.5);
+            
         }, this);
     },
     setCardsFinal: function()
