@@ -13,16 +13,12 @@ Poker.GameState = {
         this.initVariables();
         //Holds the random from the previous hand
         this.lastRand = -1;
+        
+        this.swap = false;
+        this.trade=new Array();
     },
     initVariables: function()
     {
-        //Testing
-        this.hand = new Poker.Hand(this);
-        this.hand.init(this.createCards(this.pokerData.FiveCard[0]));
-        this.displayCards(this.hand.hand, 270, 520, 150, false, 0.8)
-        console.log(this.hand.checkHand());
-        
-        
         //Choose a random value in the indices of available hands
         this.rand = Math.floor(Math.random() * this.pokerData.Hands.length);
         //Check that the new Rand is different than the laast one
@@ -99,6 +95,7 @@ Poker.GameState = {
         //Fold Button
         this.fold = this.add.button(50, 250, 'cardBack', function()
         {
+            this.swap=!this.swap;
             console.log('swap');
             //Choose the cards to swap then replace them with new cards
         }, this);
@@ -107,13 +104,25 @@ Poker.GameState = {
     },
     setCardsRandom: function()
     {
+        //Testing
+        this.hand = new Poker.Hand(this);
+        this.hand.init(this.createCards(this.pokerData.FiveCard[0]));
+        this.displayCards(this.hand.hand, 270, 520, 150, true, 0.8);
+        //Add dealer->true
+        console.log(this.hand.checkHand());
         //Set card arrays
-        this.hand = this.pokerData.Hands[this.rand];
+        /*this.hand = this.pokerData.Hands[this.rand];
         this.dealerHand = this.pokerData.Dealer[this.rand];
         this.fiveCard = this.pokerData.FiveCard[this.rand];
         this.winText = this.pokerData.WinText[this.rand];
         
-        this.prepCards();
+        this.prepCards();*/
+        var count = 0;
+        this.game.time.events.repeat(Phaser.Timer.SECOND, 5, function()
+        {
+            this.hand.hand[count].flipSprite();
+            count++;
+        }, this);
     },
     setCardsFinal: function()
     {

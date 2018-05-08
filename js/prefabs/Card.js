@@ -24,6 +24,12 @@ Poker.Card = function(state) {
          
          return texture;
      };
+     Poker.Card.prototype.changeCard = function(texture)
+     {
+         this.texture = texture;
+         this.suit = this.setSuit(texture);
+         this.value = this.setValue(texture, this.suit);
+     };
      Poker.Card.prototype.setSuit = function(textureString)
      {
          //Pull the suit out of the string passed in -> String structure suitDigit
@@ -80,16 +86,39 @@ Poker.Card = function(state) {
          {
              //Create a sprite using the card's texture (card face)
             this.sprite = this.state.add.sprite(x, y, this.texture);
-            this.sprite.scale.setTo(scale, scale);
-            this.sprite.anchor.setTo(0.5, 0.5);
          }
          else
          {
              //Create a sprite using the card's texture (card face)
             this.sprite = this.state.add.sprite(x, y, 'cardBack');
-            this.sprite.scale.setTo(scale, scale);
-            this.sprite.anchor.setTo(0.5, 0.5);
          }
+         
+         this.sprite.scale.setTo(scale, scale);
+         this.sprite.anchor.setTo(0.5, 0.5);
+         this.sprite.inputEnabled = true;
+         this.sprite.events.onInputDown.add(function()
+         {
+             if(this.state.swap)
+             {
+                 console.log(this.glow);
+                 if(this.glow===null)
+                 {
+                     this.addGlow();
+                     this.state.trade[this.state.trade.length] = this;
+                     console.log(this.state.trade);
+                 }
+                 else
+                 {
+                     this.glow.kill();
+                     this.glow=null;
+                     var currCard = this;
+                     this.state.trade=this.state.trade.filter(function(trade)
+                     {
+                         return trade.sprite!=currCard.sprite;
+                     });
+                 }
+             }
+         }, this);
      };
     Poker.Card.prototype.flipSprite = function()
     {
@@ -107,7 +136,7 @@ Poker.Card = function(state) {
         this.glow = this.state.add.sprite(this.sprite.x, this.sprite.y, 'glow');
         this.glow.scale.setTo(this.sprite.scale.x, this.sprite.scale.y);
         this.glow.anchor.setTo(0.5, 0.5);
-        this.glow.alpha=0;
+        this.glow.alpha=1;
         this.state.world.bringToTop(this.sprite);
     };
 };
