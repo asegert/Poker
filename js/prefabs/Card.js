@@ -26,7 +26,7 @@ Poker.Card = function(state) {
      };
      Poker.Card.prototype.changeCard = function(texture)
      {
-         console.log(texture);
+         //Reset card specifics based on texture
          this.texture = texture;
          this.suit = this.setSuit(texture);
          this.value = this.setValue(texture, this.suit);
@@ -98,6 +98,7 @@ Poker.Card = function(state) {
          this.sprite.scale.setTo(scale, scale);
          this.sprite.anchor.setTo(0.5, 0.5);
          this.sprite.inputEnabled = true;
+         //When the sprite is selected to trade, if it is not already displayed display the option to trade. If the sprite is previously selected, deselect
          this.sprite.events.onInputDown.add(function()
          {
              if(this.state.swap && this.state.trades < this.state.pokerData.Trades)

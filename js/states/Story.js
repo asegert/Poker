@@ -3,8 +3,10 @@ var Poker = Poker || {};
 Poker.StoryState = {
     create: function ()
     {
+        Poker.Round = 0;
+        Poker.lastRand = null;
         this.add.sprite(0, 0, 'instructions');
-        let start = this.add.button(400, 550, 'bet', function()
+        let start = this.add.button(400, 550, 'start', function()
         {
             this.game.state.start('Game');
         }, this);

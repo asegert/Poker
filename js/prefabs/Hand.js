@@ -24,6 +24,7 @@ Poker.Hand = function(state) {
              this.hand[index] = card;
          }
      };
+    //Check if all cards in the hand are of the same suit
      Poker.Hand.prototype.sameSuit = function()
      {
          var currentSuit = this.hand[0].suit;
@@ -37,6 +38,7 @@ Poker.Hand = function(state) {
          }
          return true;
      };
+    //Sort the hand using insertion sort
      Poker.Hand.prototype.insertionSort = function()
      {
          var returnArray = [this.hand[0]];
@@ -61,6 +63,7 @@ Poker.Hand = function(state) {
          }
          return returnArray;
      };
+    //Sort the hand using bucket sort
      Poker.Hand.prototype.bucketSort = function()
      {
          var returnArray=[[this.hand[0]]];
@@ -84,9 +87,9 @@ Poker.Hand = function(state) {
          }
          return returnArray;
      };
+    //Check the hand and return an index coordinating to the type of hand
     Poker.Hand.prototype.checkHand = function()
     {
-        console.log(`SameSuit: ${this.sameSuit()}`);
         if(this.sameSuit())
         {
             var ordered = this.insertionSort();
@@ -159,11 +162,12 @@ Poker.Hand = function(state) {
             }
         }
     };
+    //Get the dealer hand based on the type of hand the player has and whether or not the player is meant to lose
     Poker.Hand.prototype.getDealerHand = function()
     {
         //Use player hand to choose better or worse hand 
         var handType = this.checkHand();
-        if(this.state.pokerData.WinHands[this.state.rounds] === "Lose")
+        if(this.state.pokerData.WinHands[Poker.Round-1] === "Lose")
         {
             var rand = Math.floor(Math.random() * handType);
             
@@ -191,7 +195,10 @@ Poker.Hand = function(state) {
                 }
                 this.state.dealerHand.hand[i].flipSprite();
             }
+            rand = 9 - rand;
         }
+        
+        this.state.endGame(handType, rand);
     };
 };
     

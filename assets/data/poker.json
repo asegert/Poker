@@ -1,37 +1,4 @@
 {
-    "Hands":[
-                ["heart6", "heart7"],
-                ["spade2", "heart2"],
-                ["diamondK", "club9"],
-                ["diamond3", "heart8"],
-                ["heart5", "diamond7"],
-                ["club6", "diamond6"],
-                ["club8", "spade3"],
-                ["diamond4", "heartA"],
-                ["heart4", "club10"]
-            ],
-    "Dealer":[
-                ["heartJ", "heartA"],
-                ["diamond3", "diamond5"],
-                ["spade10", "spadeQ"],
-                ["diamondK", "diamond10"],
-                ["club10", "club7"],
-                ["spade2", "spade5"],
-                ["diamond7", "heart2"],
-                ["spadeA", "spade7"],
-                ["heart2", "spade5"]
-             ],
-    "FiveCard":[
-                ["heartQ", "heart8", "heart9", "heart10", "heartK"],
-                ["diamond2", "diamond6", "spadeQ", "club2", "diamond4"],
-                ["heartK", "spadeJ", "spadeK", "spade9", "diamond8"],
-                ["diamondJ", "heart10", "diamondQ", "diamond2", "diamondA"],
-                ["club8", "club6", "diamond2", "heartJ", "club9"],
-                ["spade3", "clubJ", "diamondA", "spade4", "spade6"],
-                ["heart8", "club7", "spadeA", "spade7", "heart3"],
-                ["heart7", "spadeJ", "spade2", "spade3", "club4"],
-                ["spadeJ", "heartA", "club2", "diamond5", "diamond7"]
-               ],
     "DealerHands":[
                 ["heartQ", "heartK", "heartJ", "heart10", "heartA"],
                 ["diamond8", "diamond9", "diamond7", "diamond5", "diamond6"],
@@ -64,36 +31,22 @@
                 ["spadeK", "clubQ", "diamond2", "spade7", "club6"],
                 ["heart2", "diamond7", "spade4", "spade8", "heart9"],
                 ["heartJ", "diamond3", "spadeA", "heartK", "heart4"],
-                ["spadeQ", "heart2", "club4", "diamond6", "spade9"]
+                ["spadeQ", "heart2", "club4", "diamond6", "spade9"],
+                ["club9", "club8", "club7", "club5", "club6"]
                ],
-    "Glow":[
-                [[false, true, true, true, false], [true, false, false, true, true]],
-                [[true, false, false, true, false], [true, true, false, false, true]],
-                [[true, false, true, true, false], [false, true, true, true, false]],
-                [[true, false, true, true, true], [true, false, true, false, true]],
-                [[true, true, false, false, true], [true, true, false, false, true]],
-                [[false, false, false, false, true], [true, false, false, true, true]],
-                [[true, false, false, false, true], [false, true, false, true, false]],
-                [[false, false, false, false, true], [false, true, true, true, false]],
-                [[false, false, false, false, false], [false, false, true, true, false]],
-                [[false, true, false, true, true], [true, false, true, false, true]]
-           ],
     "WinText":[
-                ["High Card"],
-                ["1 Pair"],
-                ["2 Pair"],
-                ["3 of a Kind"],
-                ["Straight"],
-                ["Flush"],
-                ["Full House"],
-                ["4 of a Kind"],
+                ["Royal Flush"],
                 ["Straight Flush"],
-                ["Royal Flush"]
+                ["4 of a Kind"],
+                ["Full House"],
+                ["Flush"],
+                ["Straight"],
+                ["3 of a Kind"],
+                ["2 Pair"],
+                ["1 Pair"],
+                ["High Card"]
               ],
-    "FinalHand":["club10", "clubA"],
-    "FinalDealer":["club4", "spadeJ"],
-    "FinalFiveCard":["diamond4", "clubQ", "heartJ", "clubK", "clubJ"],
-    "FinalWin":["Royal\nFlush", "Full\nHouse"],
+    "FinalHand":["club10", "clubA", "clubK", "clubQ", "clubJ"],
     "Trades": 1,
     "WinHands": ["Lose", "Lose", "Win"]
 }

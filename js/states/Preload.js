@@ -70,8 +70,13 @@ Poker.PreloadState = {
         this.load.image('glow', 'assets/images/glow.png');
         this.load.image('cardBack', 'assets/images/cardBack_red5.png');
         
-        this.load.image('bet', 'assets/images/bet.png');
-        this.load.image('fold', 'assets/images/fold.png');
+        this.load.image('start', 'assets/images/start.png');
+        this.load.image('hintButton', 'assets/images/hintButton.png');
+        this.load.image('close', 'assets/images/close.png');
+        this.load.image('trade', 'assets/images/trade.png');
+        this.load.image('noTrade', 'assets/images/noTrade.png');
+        this.load.image('continue', 'assets/images/continue.png');
+        this.load.image('submit', 'assets/images/submit.png');
         
         this.load.image('instructions', 'assets/images/instructions.png');
         this.load.image('winner', 'assets/images/winner.png');
@@ -82,6 +87,16 @@ Poker.PreloadState = {
         this.load.image('arrow', 'assets/images/arrow.png');
         
         this.load.text('pokerData', 'assets/data/poker.json');
+        /*
+        JSON
+        DealerHands - 2D array containing the texture name of the 5 cards that comprise each hand type for the dealer
+        PlayerHands - 2D array containing the texture name of the 5 cards that comprise each hand type, save for the Royal Flush as it cannot be beaten, for the player
+        AdditionalCards - 2D array containing the texture name of the 5 cards that can be used as replacements for each player hand to ensure the player cannot win
+        WinText: An array containing a list of all the text hands for display purposes
+        Final Hand: The final hand is a win and thus is a Royal Flush
+        Trades: A number indicating how many times a player is allowed to trade cards, the additional cards must be large enough to accomodate ie. 1 Trade = 5 cards 2 Trades = 10 cards...
+        WinHands: An array spanning however many rounds are to be played and indicating whether or not it is a winning or losing round
+        */
         
     },
     create: function ()
